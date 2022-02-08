@@ -152,4 +152,21 @@ public class QuerysAlmacenes {
 				System.out.println("Error en la obtención de la data");
 			}
 		}
+		
+		public void deleteQuerys() {
+			int ID = 2;
+			try {
+				String queryDB = "USE " + this.dataName + ";";
+				Statement stDb = conn.createStatement();
+				stDb.executeUpdate(queryDB);
+				
+				String query = "DELETE FROM " + this.tableName + " WHERE idAlmacened = \"" + ID + "\" ;";
+				Statement st = conn.createStatement();
+				st.executeQuery(query);
+				
+			}catch (SQLException ex ) {
+				System.out.println(ex.getMessage());
+				System.out.println("Error en la eliminacion de los datos");
+			}
+		}
 }
