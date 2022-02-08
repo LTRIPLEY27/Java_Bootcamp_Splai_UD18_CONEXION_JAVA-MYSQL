@@ -1,9 +1,11 @@
 package DataBaseApp;
-import CreateQuery.Querys;
+import CreateQuery.QuerysTienda;
+import CreateQuery.QuerysAlmacenes;
 public class ConectApp {
 
 	public static void main(String[] args) {
-			Querys query = new Querys();
+			/*QuerysTienda query = new QuerysTienda();
+			
 			query.crearConexion();
 			//query.cierraConexion();
 			//query.crearDataBase();
@@ -11,6 +13,16 @@ public class ConectApp {
 			//query.createTableTwo();
 			query.inserValuesTableOne();
 			query.inserValuesTableTwo();
+			*/
+			QuerysAlmacenes almacen = new QuerysAlmacenes();
+			
+			almacen.crearConexion();
+			/*almacen.crearDataBase();
+			almacen.createTable();
+			almacen.createTableTwo();
+			almacen.inserValuesTableOne();
+			almacen.inserValuesTableTwo();*/
+			almacen.getValues();
 	}
 
 }

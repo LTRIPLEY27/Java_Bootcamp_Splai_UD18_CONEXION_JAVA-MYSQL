@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Querys {
+public class QuerysTienda {
 
 	private Connection conn;
 	private String user;
@@ -13,7 +13,7 @@ public class Querys {
 	private String tableName;
 	private String tableNameTwo;
 	
-	public Querys() {
+	public QuerysTienda() {
 		this.user = "remote";
 		this.password = "Taquito20.";
 		this.dataName = "TIENDA_INFORMÁTICA";
@@ -125,5 +125,7 @@ public class Querys {
 				System.out.println(ex.getMessage());
 				System.out.println("Error en el almacenamiento");
 			}
+			
+			
 		}
 }
