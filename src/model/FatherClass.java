@@ -1,4 +1,4 @@
-package CreateQuery;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,6 +46,39 @@ public class FatherClass {
 		this.tableNameFour = tableNameFour;
 	}
 	
+	
+		public Connection getConn() {
+		return conn;
+	}
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+		public String getDataName() {
+		return dataName;
+	}
+
+	public void setDataName(String dataName) {
+		this.dataName = dataName;
+	}
+
 		public String getTableName() {
 		return tableName;
 	}
@@ -149,28 +182,6 @@ public class FatherClass {
 			}catch (SQLException ex ) {
 				System.out.println(ex.getMessage());
 				System.out.println("Error en el almacenamiento");
-			}
-		}
-		
-		
-		public void getValues() {
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				//SE PUEDE CUSTOMIZAR CON UN IF PARA APLICAR EN CADA CASO LA CONSULTA DE LA TABLA
-				String query = "SELECT * FROM " + this.tableName;
-				Statement st = conn.createStatement();
-				ResultSet result = st.executeQuery(query);
-				
-				while(result.next()) {
-					System.out.println("ID " + result.getString("ID") +
-										" " + "Nombre " + result.getString("nombre"));
-				}			
-			}catch (SQLException ex ) {
-				System.out.println(ex.getMessage());
-				System.out.println("Error en la obtención de la data");
 			}
 		}
 		
