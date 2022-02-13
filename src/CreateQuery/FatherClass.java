@@ -14,8 +14,6 @@ public class FatherClass {
 	private String tableName;
 	private String tableNameTwo;
 	// STRINGS PARA CADA UNA DE LAS TABLAS
-	private final String FABRICANTES = "(ID int AUTO_INCREMENT PRIMARY KEY, nombre nvarchar (100));";
-	private final String ARTICULOS = "(ID int AUTO_INCREMENT PRIMARY KEY, nombre nvarchar (100), precio int, codigo int, FOREIGN KEY(codigo) REFERENCES " + this.tableName + "(ID) ON DELETE CASCADE ON UPDATE CASCADE);";
 	
 	public FatherClass(String user, String password, String dataName, String tableName, String tableNameTwo) {
 		this.user = user;
@@ -24,6 +22,28 @@ public class FatherClass {
 		this.tableName = tableName;
 		this.tableNameTwo = tableNameTwo;
 	}
+	
+	
+		public String getTableName() {
+		return tableName;
+	}
+
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+
+	public String getTableNameTwo() {
+		return tableNameTwo;
+	}
+
+
+	public void setTableNameTwo(String tableNameTwo) {
+		this.tableNameTwo = tableNameTwo;
+	}
+
+
 		public void crearConexion() {
 
 			try {
@@ -58,14 +78,14 @@ public class FatherClass {
 			}
 		}
 		
-		public void createTableFabricantes() {
+		public void createTable(String table) {
 			// TABLA SIN FOREIGN KEY 
 			try {
 				String queryDB = "USE " + this.dataName + ";";
 				Statement stDb = conn.createStatement();
 				stDb.executeUpdate(queryDB);
 				
-				String queryTab = "CREATE TABLE " + this.tableName + "" + "(ID int AUTO_INCREMENT PRIMARY KEY, nombre nvarchar (100));";
+				String queryTab = table;
 				Statement st = conn.createStatement();
 				st.executeUpdate(queryTab);
 				System.out.println("Corrected");
@@ -74,32 +94,16 @@ public class FatherClass {
 				System.out.println("Error crando tabla.");	
 			}
 		}
+	
 		
-		public void createTableArticulos() {
-			// TABLA SIN FOREIGN KEY 
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryTab = "CREATE TABLE " + this.tableNameTwo + "" + "(ID int AUTO_INCREMENT PRIMARY KEY, nombre nvarchar (100), precio int, codigo int, FOREIGN KEY(codigo) REFERENCES " + this.tableName + "(ID) ON DELETE CASCADE ON UPDATE CASCADE);";
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryTab);
-				System.out.println("Corrected");
-			} catch (SQLException ex){
-				System.out.println(ex.getMessage());
-				System.out.println("Error crando tabla.");	
-			}
-		}
-		
-		public void inserValuesTableOneFabricantes() {
+		public void insertValues(String values) {
 			String name = "Portatil";
 			try {
 				String queryDB = "USE " + this.dataName + ";";
 				Statement stDb = conn.createStatement();
 				stDb.executeUpdate(queryDB);
 				
-				String queryInsert = "INSERT INTO " + this.tableName + "(nombre) VALUES (" + "\"" + name + "\") ;";
+				String queryInsert = values;
 				
 				Statement st = conn.createStatement();
 				st.executeUpdate(queryInsert);
@@ -110,28 +114,6 @@ public class FatherClass {
 			}
 		}
 		
-		public void inserValuesTableTwoArticulos() {
-			String name = "Portatil";
-			int price = 874;
-			int code = 2;
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryInsert = "INSERT INTO " + this.tableNameTwo + "(nombre, precio, codigo) VALUES (" + "\"" + name + "\", "
-						+ "\"" + price +  "\", " +  "\"" + code +  "\") ;";
-				
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryInsert);
-				System.out.println("Corrected Insert");
-			}catch (SQLException ex ) {
-				System.out.println(ex.getMessage());
-				System.out.println("Error en el almacenamiento");
-			}
-			
-			
-		}
 		
 		public void getValues() {
 			try {
@@ -171,121 +153,5 @@ public class FatherClass {
 			}
 		}
 		
-		
-		//////////  TABLAS ALMACENES
-		
-		public void createTableAlmacenes() {
-			// TABLA SIN FOREIGN KEY 
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryTab = "CREATE TABLE " + this.tableName + "" + "(ID int AUTO_INCREMENT PRIMARY KEY, lugar nvarchar (100), capacidad int);";
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryTab);
-				System.out.println("Corrected");
-			} catch (SQLException ex){
-				System.out.println(ex.getMessage());
-				System.out.println("Error creando tabla.");	
-			}
-		}
-		
-		public void createTableCajas() {
-			// TABLA SIN FOREIGN KEY 
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryTab = "CREATE TABLE " + this.tableNameTwo + "" + "(ID varchar (5) PRIMARY KEY, contenido nvarchar (100), valor int, almacen int, FOREIGN KEY(almacen) REFERENCES " + this.tableName + "(ID) ON DELETE CASCADE ON UPDATE CASCADE);";
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryTab);
-				System.out.println("Corrected");
-			} catch (SQLException ex){
-				System.out.println(ex.getMessage());
-				System.out.println("Error creando tabla.");	
-			}
-		}
-		
-		public void inserValuesTableOneAlmacenes() {
-			String place = "Barcelona";
-			int capacity = 14000;
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryInsert = "INSERT INTO " + this.tableName + "(lugar, capacidad) VALUES (" + "\"" 
-									+ place + "\", " + "\"" + capacity +  "\") ;";
-				
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryInsert);
-				System.out.println("Corrected Insert");
-			}catch (SQLException ex ) {
-				System.out.println(ex.getMessage());
-				System.out.println("Error en el almacenamiento");
-			}
-		}
-		
-		//RECIBIR PARÁMETROS
-		public void inserValuesTableTwoCajas() {
-			String cajas = "ABC2";
-			String contenido = "Portatil";
-			int price = 874;
-			int code = 2;
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryInsert = "INSERT INTO " + this.tableNameTwo + "(ID, contenido, valor, almacen) VALUES (" + "\"" + cajas + "\", "
-						+ "\"" + contenido + "\", "
-						+ "\"" + price +  "\", " +  "\"" + code +  "\") ;";
-				
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryInsert);
-				System.out.println("Corrected Insert");
-			}catch (SQLException ex ) {
-				System.out.println(ex.getMessage());
-				System.out.println("Error en el almacenamiento");
-			}
-		}
-		
-		
-		/// TABLAS DIRECTORES
-		
-		public void createTableDespachos() {
-		
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryTab = "CREATE TABLE " + this.tableName + "" + "(ID int PRIMARY KEY,  capacidad int);";
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryTab);
-				System.out.println("Corrected");
-			} catch (SQLException ex){
-				System.out.println(ex.getMessage());
-				System.out.println("Error creando tabla.");	
-			}
-		}
-		
-		public void createTableDirectores() {
-			// TABLA SIN FOREIGN KEY 
-			try {
-				String queryDB = "USE " + this.dataName + ";";
-				Statement stDb = conn.createStatement();
-				stDb.executeUpdate(queryDB);
-				
-				String queryTab = "CREATE TABLE " + this.tableNameTwo + "" + "(ID varchar (8) PRIMARY KEY, nomApels nvarchar (255), capacidad int);";
-				Statement st = conn.createStatement();
-				st.executeUpdate(queryTab);
-				System.out.println("Corrected");
-			} catch (SQLException ex){
-				System.out.println(ex.getMessage());
-				System.out.println("Error creando tabla.");	
-			}
-		}
+	
 }
