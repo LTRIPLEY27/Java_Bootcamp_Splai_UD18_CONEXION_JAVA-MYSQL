@@ -4,28 +4,18 @@ import CreateQuery.FatherClass;
 import CreateQuery.QuerysAlmacenes;
 import CreateQuery.QuerysCientificos;
 import CreateQuery.QuerysDirectores;
+import CreateQuery.QuerysInvestigadores;
+
+/*
+ * @utor: Isabel Calzadilla
+ * UD18 : JAVA DATBASE CONECTION
+ * EJERCICIOS : 1-3-5-7-9 GRUPALES
+ * */
+
 public class ConectApp {
 
 	public static void main(String[] args) {
-			/*QuerysTienda query = new QuerysTienda();
 			
-			query.crearConexion();
-			//query.cierraConexion();
-			//query.crearDataBase();
-			//query.createTable();
-			//query.createTableTwo();
-			query.inserValuesTableOne();
-			query.inserValuesTableTwo();
-			*/
-			//QuerysAlmacenes almacen = new QuerysAlmacenes();
-			
-			//almacen.crearConexion();
-			/*almacen.crearDataBase();
-			almacen.createTable();
-			almacen.createTableTwo();
-			almacen.inserValuesTableOne();
-			almacen.inserValuesTableTwo();*/
-			//almacen.getValues();
 		
 		
 	/*	QuerysTienda tienda = new QuerysTienda("remote", "Taquito20.", "TIENDA_INFORMATICA", "FABRICANTES", "ARTICULOS");
@@ -88,7 +78,28 @@ public class ConectApp {
 		cientificos.insertValues(values2);
 		cientificos.insertValues(values3);*/
 		
+		QuerysInvestigadores investigador = new QuerysInvestigadores("remote", "Taquito20.", "investigadores", "FACULTAD", "INVESTIGADORES", "EQUIPOS", "RESERVA");
+		investigador.crearConexion();
+		investigador.crearDataBase();
+		String tabla1 = "CREATE TABLE " + investigador.getTableName() + "" + "(ID int PRIMARY KEY,  nombre nvarchar (100));";
+		String tabla2 = "CREATE TABLE " + investigador.getTableNameTwo() + "" + "(ID varchar (8) PRIMARY KEY,  nomApels nvarchar (255), facultad int, FOREIGN KEY(facultad) REFERENCES " + investigador.getTableName() + "(ID) ON DELETE CASCADE ON UPDATE CASCADE);";
+		String tabla3 = "CREATE TABLE " + investigador.getTableNameThree() + "" + "(ID char (4) PRIMARY KEY,  nombre nvarchar (100), facultad int, FOREIGN KEY(facultad) REFERENCES " + investigador.getTableName() + "(ID) ON DELETE CASCADE ON UPDATE CASCADE);";
+		String tabla4 = "CREATE TABLE " + investigador.getTableNameFour() + "" + "(ID char (4) PRIMARY KEY,  comienzo date, fin date, investigadores varchar (8), equipos char (4), FOREIGN KEY(investigadores) REFERENCES " + investigador.getTableNameTwo() + "(ID) ON DELETE CASCADE ON UPDATE CASCADE," 
+				+ "														 FOREIGN KEY(equipos) REFERENCES "  + investigador.getTableNameThree() + "(ID) ON DELETE CASCADE ON UPDATE CASCADE);";
+		investigador.createTable(tabla1);
+		investigador.createTable(tabla2);
+		investigador.createTable(tabla3);
+		investigador.createTable(tabla4);
 		
+		String values1 = "INSERT INTO " + investigador.getTableName() + "(ID, nombre) VALUES (1, 'FILOSOFIA') ;";
+		String values2 = "INSERT INTO " + investigador.getTableNameTwo() + "(ID, nomApels, facultad) VALUES ('123A', 'LUDWIG VAN BEETHOVEN', 1) ;";
+		String values3 = "INSERT INTO " + investigador.getTableNameThree() + "(ID, nombre, facultad) VALUES ('123A', 'pitagóricos', 1) ;";
+		String values4 = "INSERT INTO " + investigador.getTableNameFour() + "(ID, comienzo, fin, investigadores, equipos) VALUES ('123A', '1978-06-27','2020-04-05', '123A', '123A') ;";
+		
+		investigador.insertValues(values1);
+		investigador.insertValues(values2);
+		investigador.insertValues(values3);
+		investigador.insertValues(values4);
 	}
 
 }
