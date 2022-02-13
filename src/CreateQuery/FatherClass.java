@@ -13,6 +13,8 @@ public class FatherClass {
 	private String dataName;
 	private String tableName;
 	private String tableNameTwo;
+	private String tableNameThree;
+	private String tableNameFour;
 	// STRINGS PARA CADA UNA DE LAS TABLAS
 	
 	public FatherClass(String user, String password, String dataName, String tableName, String tableNameTwo) {
@@ -23,6 +25,26 @@ public class FatherClass {
 		this.tableNameTwo = tableNameTwo;
 	}
 	
+	//CONSTRUCTOR PARA 3 TABLAS
+	public FatherClass(String user, String password, String dataName, String tableName, String tableNameTwo, String tableNameThree) {
+		this.user = user;
+		this.password = password;
+		this.dataName = dataName;
+		this.tableName = tableName;
+		this.tableNameTwo = tableNameTwo;
+		this.tableNameThree = tableNameThree;
+	}
+	
+	//CONSTRUCTOR PARA 4 TABLAS
+	public FatherClass(String user, String password, String dataName, String tableName, String tableNameTwo, String tableNameThree, String tableNameFour) {
+		this.user = user;
+		this.password = password;
+		this.dataName = dataName;
+		this.tableName = tableName;
+		this.tableNameTwo = tableNameTwo;
+		this.tableNameThree = tableNameThree;
+		this.tableNameFour = tableNameFour;
+	}
 	
 		public String getTableName() {
 		return tableName;
@@ -43,6 +65,22 @@ public class FatherClass {
 		this.tableNameTwo = tableNameTwo;
 	}
 
+
+		public String getTableNameThree() {
+		return tableNameThree;
+	}
+
+	public void setTableNameThree(String tableNameThree) {
+		this.tableNameThree = tableNameThree;
+	}
+
+	public String getTableNameFour() {
+		return tableNameFour;
+	}
+
+	public void setTableNameFour(String tableNameFour) {
+		this.tableNameFour = tableNameFour;
+	}
 
 		public void crearConexion() {
 
@@ -97,7 +135,7 @@ public class FatherClass {
 	
 		
 		public void insertValues(String values) {
-			String name = "Portatil";
+
 			try {
 				String queryDB = "USE " + this.dataName + ";";
 				Statement stDb = conn.createStatement();
